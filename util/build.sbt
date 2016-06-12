@@ -1,0 +1,1 @@
+assemblyJarName in assembly := "util.jar"

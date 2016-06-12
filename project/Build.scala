@@ -31,9 +31,13 @@ object Dependencies {
 
   val scalikejdbc = "org.scalikejdbc" %% "scalikejdbc" % "2.3.5"
 
+  val mysql = "mysql" % "mysql-connector-java" % "5.1.39"
+
   val sixtwoencrpy = ("com.enniu" % "enniu-security-service" % "1.1.2")
     .exclude("ch.qos.logback", "logback-core")
     .exclude("ch.qos.logback", "logback-classic")
+
+  val jedis = "redis.clients" % "jedis" % "2.8.1"
 }
 
 
@@ -42,22 +46,19 @@ object ProjectBuild extends Build {
   import Dependencies._
   import BuildSettings._
 
-  val utilDeps = Seq(scalikejdbc)
+  val utilDeps = Seq(scalikejdbc, mysql)
 
-  val sixtwoDeps = Seq(sixtwoencrpy)
+  val sixtwoDeps = Seq(sixtwoencrpy, jedis)
 
   lazy val util = Project("util", file("util"), settings = buildSettings)
     .settings(libraryDependencies ++= utilDeps)
 
-  lazy val sixtwo = (project in file("sixtwocompany"))
-    .settings(name := "sixtwocompany")
-    .settings(buildSettings: _*)
+  lazy val sixtwocompany = Project("sixtwocompany", file("sixtwocompany"), settings = buildSettings)
     .settings(libraryDependencies ++= sixtwoDeps)
     .dependsOn(util)
 
   lazy val root = (project in file("."))
     .settings(buildSettings: _*)
-    .aggregate(sixtwo, util)
-    .dependsOn(sixtwo, util)
-
+    .aggregate(sixtwocompany, util)
+    .dependsOn(sixtwocompany, util)
 }

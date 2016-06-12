@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# 此脚本用来生成基于sbt的多工程项目
+# 此脚本用来生成基于sbt的多工程项目,只是最基本的,生成后依赖库等还是要额外处理
 # ./**.sh projectname moduleone moduletwo modulethree ...
 #
 
