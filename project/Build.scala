@@ -37,9 +37,12 @@ object Dependencies {
     .exclude("ch.qos.logback", "logback-core")
     .exclude("ch.qos.logback", "logback-classic")
 
-  val jedis = "redis.clients" % "jedis" % "2.8.1"
-}
+  val json4s = "org.json4s" %% "json4s-native" % "3.3.0"
 
+  val jedis = "redis.clients" % "jedis" % "2.8.1"
+
+  val okhttp = "com.squareup.okhttp3" % "okhttp" % "3.3.1"
+}
 
 object ProjectBuild extends Build {
 
@@ -48,7 +51,7 @@ object ProjectBuild extends Build {
 
   val utilDeps = Seq(scalikejdbc, mysql)
 
-  val sixtwoDeps = Seq(sixtwoencrpy, jedis)
+  val sixtwoDeps = Seq(sixtwoencrpy, jedis, json4s, okhttp)
 
   lazy val util = Project("util", file("util"), settings = buildSettings)
     .settings(libraryDependencies ++= utilDeps)
